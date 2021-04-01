@@ -170,5 +170,38 @@ Q2dataSum$total <- rowSums(Q2dataSum[, 2:3])
 topEcon <- Q2dataSum[order(Q2dataSum$total, decreasing = T), ]
 ```
 
-   
+## Results 
+
+### Find types of events that are most harmful with respect to population health    
+
+ - fatilities   
+```{r}
+topFat[1:10, ]
+```
+
+ - injuries    
+```{r}
+topInj[1:10, ]
+```
+
+If adding the numbers of fatalities and injuries and ranked by the total number, the top 10 events that causes the most population health are as follows  
+
+```{r}
+topHealth[1:10, ]
+```
+
+The following figure depicts top 10 event types that causes population health hazards (sum of fatalities and injuries)  
+```{r}
+ggplot(data = topHealth[1:10, ], aes(x = reorder(EVTYPE, total), y = total)) +
+  #need to use reorder to prevent the categorical data from reordering
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  xlab('Event type') +
+  ylab('Total injuries and fatalities') +
+  ggtitle('Top 10 weather events that causes population health hazards') +
+  theme_minimal()
+```
+**as we can see, tornados are the most dangerous weather event that causes injuries and fatalities**
+
+
 
