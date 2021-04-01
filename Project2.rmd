@@ -59,7 +59,7 @@ names(raw)
 
 4. Select data  
 
-Since we're only interested in the correlation of the nation-wide event type to health and economic consequense, only the following columns will be selected for further analysis:  
+Since we're only interested in the correlation of the nation-wide event type to health and economic consequences, only the following columns will be selected for further analysis:  
 
 - EVTYPE: event type  
 - FATALITIES: number of fatalities  
@@ -73,6 +73,35 @@ Since we're only interested in the correlation of the nation-wide event type to 
 selectCol <- c('EVTYPE', 'FATALITIES', 'INJURIES', 'PROPDMG', 'PROPDMGEXP', 'CROPDMG', 'CROPDMGEXP')
 rawSel <- raw[, selectCol]
 summary(rawSel)
+```
+
+## Data analysis
+
+### Find types of events that are most harmful with respect to population health
+
+ Make a table that counts the total fatalities and injuries in each event type  
+```{r}
+Q1data <- rawSel[, 1:3] %>% 
+  group_by(EVTYPE) %>%
+  summarise_all(sum)
+summary(Q1data)
+```
+
+- Find the top 10 event types that causes the most fatalities  
+
+```{r}
+topFat <- Q1data[order(Q1data$FATALITIES, decreasing = T), ]
+```
+
+ Find the top 10 event types that causes the most injuries  
+```{r}
+topInj <- Q1data[order(Q1data$INJURIES, decreasing = T), ]
+```
+
+- Find the top 10 event types that causes the most fatalities and injuries
+```{r}
+Q1data$total <- rowSums(Q1data[, 2:3])
+topHealth <- Q1data[order(Q1data$total, decreasing = T), ]
 ```
 
 
