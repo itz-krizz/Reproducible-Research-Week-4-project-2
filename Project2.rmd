@@ -52,6 +52,10 @@ if (!file.exists('data2.csv.bz2')){
 raw <- read.csv('data2.csv.bz2', stringsAsFactors = F)
 ```
 
+3. Inspect the data  
+```{r inspect data}
+names(raw)
+```
 
 
 
