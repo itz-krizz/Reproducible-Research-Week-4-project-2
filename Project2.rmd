@@ -203,5 +203,36 @@ ggplot(data = topHealth[1:10, ], aes(x = reorder(EVTYPE, total), y = total)) +
 ```
 **as we can see, tornados are the most dangerous weather event that causes injuries and fatalities**
 
+### Find types of events that have the greatest economic consequences  
+
+If separated by property and crop damages, the top 10 events that causes the most  
+
+- property damage 
+```{r}
+topProp[1:10, ]
+```
+
+ - crop damage  
+```{r}
+topCrop[1:10, ]
+```
+If combining the amounts lost in property and crop damage and ranked by the total number, the top 10 events that causes the most economic damages are  
+
+```{r}
+ggplot(data = topEcon[1:10, ], aes(x = reorder(EVTYPE, total), y = total)) +
+  #need to use reorder to prevent the categorical data from reordering
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  scale_y_continuous(trans = 'log10') +
+  xlab('Event type') +
+  ylab('Total property and crop damages (log10)') +
+  ggtitle('Top 10 weather events that causes economic hazards') +
+  theme_classic()
+```
+**As the figure is shown, flash flood causes by a significant amount of property and crop damages.** It should be noted that the property damage amount is significantly more that crop damage amount, as shown in summary below - the mean and maximum values fro property loss is 10**3 more than crops!  
+
+```{r}
+summary(topEcon[, -4])
+```
 
 
