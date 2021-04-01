@@ -57,7 +57,23 @@ raw <- read.csv('data2.csv.bz2', stringsAsFactors = F)
 names(raw)
 ```
 
+4. Select data  
 
+Since we're only interested in the correlation of the nation-wide event type to health and economic consequense, only the following columns will be selected for further analysis:  
+
+- EVTYPE: event type  
+- FATALITIES: number of fatalities  
+- INJURIES: number of injuries  
+- PROPDMG: property damage (dollars)  
+- PROPDMGEXP: magnitude of property damage (K = thousands, M = millions, B = billions)  
+- CROPDMG: crop damage (dollars)  
+- CROPDMGEXP: magnitude of crop damage (H = hundreds, K = thousands, M = millions, B = billions)  
+
+```{r}
+selectCol <- c('EVTYPE', 'FATALITIES', 'INJURIES', 'PROPDMG', 'PROPDMGEXP', 'CROPDMG', 'CROPDMGEXP')
+rawSel <- raw[, selectCol]
+summary(rawSel)
+```
 
 
 
